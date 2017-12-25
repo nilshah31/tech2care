@@ -1,3 +1,22 @@
+exports.get_patient_info = function (req,res,fname,lname,phone) {
+    var con = req.app.get('con');
+    sql = "select * from Patient where mob_num="+phone+" or fname='"+fname+"'" +
+        " or lname='"+lname+"'";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        res.render('patient_search',{patient_data:result});
+    });
+};
+
+exports.get_all_patient_info = function (req,res) {
+    var con = req.app.get('con');
+    sql = "select * from Patient ORDER BY reg_dt_time";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        res.render('index',{patient_data:result});
+    });
+};
+
 exports.insert_new_patient = function(req,res,mrn,fname,lname,gender,dob,age,add1,
                                       add2,city,state,country,mob_num,reg_dt_time,status){
     var con = req.app.get('con');
@@ -50,4 +69,5 @@ exports.create_patient_table = function(req,res){
         if (err) console.log("Error")
         console.log("Patient Table Created")
     });
+    req.redirect('index');
 };

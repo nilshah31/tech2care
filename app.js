@@ -1,5 +1,5 @@
-var mysql = require('mysql');
 var path = require('path');
+var mysql = require('mysql');
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -7,7 +7,6 @@ var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
-var nodemailer = require('nodemailer');
 
 global.base_dir = __dirname;
 global.abs_path = function(path) {
@@ -53,6 +52,7 @@ var server = app.listen(app.get('port'), function(){
     console.log('Server started on port '+app.get('port'));
 });
 
+
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -65,5 +65,6 @@ con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
 });
+
 
 app.set('con', con);

@@ -20,6 +20,7 @@
     "express-validator": "*",
     "moment": "^2.19.3",
     "mysql": "*",
+    "mysql-model": "0.0.2",
     "nodemailer": "*",
     "random-number": "*"
   },

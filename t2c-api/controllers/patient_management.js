@@ -5,7 +5,6 @@ var moment = require('moment');
 
 exports.register_patient = function(req, res) {
     var mrn = generate_random_number();
-    console.log(req.body.dob);
     var fname = ((req.body.fname) ? req.body.fname : '');
     var lname = ((req.body.lname) ? req.body.lname : '');
     var gender = ((req.body.gender) ? req.body.gender : '');
@@ -22,11 +21,17 @@ exports.register_patient = function(req, res) {
     patient_modal.create_patient_table(req,res);
     patient_modal.insert_new_patient(req,res,mrn,fname,lname,gender,dob,age,add1,
         add2,city,state,country,mob_num,reg_dt_time,status);
-    res.sendStatus(201);
 };
 
+exports.get_all_patient_info = function(req, res) {
+    patient_modal.get_all_patient_info(req,res);
+}
+
 exports.get_patient_info = function(req, res) {
-    res.sendStatus(201);
+    var fname = ((req.body.fname) ? req.body.fname : '');
+    var lname = ((req.body.lname) ? req.body.lname : '');
+    var phone = ((req.body.phone) ? req.body.phone : '');
+    patient_modal.get_patient_info(req,res,fname,lname,phone);
 };
 
 exports.delete_patient_info = function(req, res) {

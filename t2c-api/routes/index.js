@@ -6,7 +6,7 @@ module.exports = router;
 var patient_api = require('../controllers/patient_management');
 
 router.get('/', function(req, res) {
-    res.render('index');
+    patient_api.get_all_patient_info(req,res);
 });
 
 router.get('/new_patient', function(req, res) {
@@ -21,6 +21,13 @@ router.get('/patient_search', function(req, res) {
     res.render('patient_search');
 });
 
+router.post('/patient_search',function (req,res) {
+    patient_api.get_patient_info(req,res);
+});
+
 router.post('/new_patient',patient_api.register_patient,function (err,res) {
-    console.log("Writing");
+    res.redirect('/');
+});
+
+router.post('/patient_search',patient_api.get_patient_info,function (err,res) {
 });

@@ -113,3 +113,13 @@
 .customInputWidth > input[type='text']{
     width: 50%;
 }
+
+.add_patient_btn{
+    position: relative;
+    left: 850px;
+}
+
+.srch_patient_btn{
+    position: relative;
+    left: 850px;
+}
