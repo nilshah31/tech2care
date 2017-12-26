@@ -22,11 +22,11 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                           <label for="grant1">First Name</label>
-                                          <input type="text" class="form-control" id='fname' name="fname" placeholder="First Name" required />
+                                          <input tabindex="1" type="text" class="form-control" id='fname' name="fname" placeholder="First Name" required />
                                       </div>
                                       <div class="form-group">
                                           <label for="grantparent">Gender</label>
-                                          <select class="form-control" name="gender" required>
+                                          <select tabindex="3" class="form-control" name="gender" required>
                                               <option>Please Select</option>
                                               <option>M</option>
                                               <option>F</option>
@@ -34,89 +34,55 @@
                                       </div>
                                       <div class="form-group">
                                           <label for="grantparent">Date of Birth</label>
-                                          <input type="date" class="form-control" name="dob" onchange="getPatientAge(event)">
+                                          <input tabindex="5" type="date" class="form-control" name="dob" onchange="getPatientAge(event)">
                                       </div>
                                       <div class="form-group">
                                           <label for="Address 1">Address 1</label>
-                                          <input type="text" class="form-control" name='add1' placeholder="Address 1" />
+                                          <input tabindex="7" type="text" class="form-control" name='add1' placeholder="Address 1" />
                                       </div>
                                       <div class="form-group">
                                           <label for="City">City</label>
-                                          <input type="text" class="form-control" name="city" placeholder="City" required />
+                                          <input tabindex="9" type="text" class="form-control" name="city" placeholder="City" required />
                                       </div>
                                       <div class="form-group">
                                           <label for="grant1">Country</label>
-                                          <input type="text" class="form-control" name='country' placeholder="Country" />
+                                          <input tabindex="11" type="text" class="form-control" name='country' placeholder="Country" />
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="grantpo">Physican Name</label>
+                                          <input tabindex="13" type="text" class="form-control" id='fname' placeholder="First Name" required />
                                       </div>
                                   </div>
                                   <div class="col-md-6">
                                       <div class="form-group">
                                           <label for="shorttitle">Last Name </label>
-                                          <input type="text" class="form-control" name='lname' placeholder="Last name" required />
+                                          <input tabindex="2" type="text" class="form-control" name='lname' placeholder="Last name" required />
                                       </div>
                                       <div class="form-group">
                                           <label for="title">Phone Number</label>
-                                          <input type="text" class="form-control" name='phone_number' placeholder="Phone Number" required />
+                                          <input tabindex="4" type="text" class="form-control" name='phone_number' placeholder="Phone Number" required />
                                       </div>
                                       <div class="form-group">
                                           <label for="suplimenta">Age</label>
-                                          <input type="text" class="form-control" id='age' name='age' readonly/>
+                                          <input tabindex="6" type="text" class="form-control" id='age' name='age' readonly/>
                                       </div>
                                       <div class="form-group">
                                           <label for="grant1">Address 2</label>
-                                          <input type="text" class="form-control" name='add2' placeholder="Address 2" />
+                                          <input tabindex="8" type="text" class="form-control" name='add2' placeholder="Address 2" />
                                       </div>
                                       <div class="form-group">
                                           <label for="grant1">State</label>
-                                          <input type="text" class="form-control" name='country_state' placeholder="State" />
+                                          <input tabindex="10" type="text" class="form-control" name='country_state' placeholder="State" />
                                       </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                          <h4 class="panel-title">
-                              <a style="text-decoration: none;" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                  Insurance Details</a>
-                          </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                          <div class="panel-body">
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="well well-sm well-primary">
+                                      <div class="form-group">
                                           <label for="grantpo">Insurance Type</label>
-                                          <select class="form-control" id="grantpo">
+                                          <select tabindex="12" class="form-control" id="grantpo">
                                               <option selected>Self</option>
                                           </select>
                                       </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                          <h4 class="panel-title">
-                              <a style="text-decoration: none;" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                  Referred Phycian</a>
-                          </h4>
-                      </div>
-                      <div id="collapseThree" class="panel-collapse collapse">
-                          <div class="panel-body">
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="well well-sm well-primary">
-                                          <label for="grantpo">Physican Name</label>
-                                          <input type="text" class="form-control" id='fname' placeholder="First Name" required />
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="well well-sm well-primary">
+                                      <div class="form-group">
                                           <label for="grantpo">Address</label>
-                                          <input type="text" class="form-control" id='fname' placeholder="First Name" required />
+                                          <input tabindex="14" type="text" class="form-control" id='fname' placeholder="First Name" required />
                                       </div>
                                   </div>
                               </div>

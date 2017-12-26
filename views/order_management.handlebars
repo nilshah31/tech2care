@@ -1,0 +1,75 @@
+<div class="col-md-12" style="margin-left: 2%">
+    <br/>
+    <div class="row">
+        <button type="button" class="btn btn-warning btn-lg add_patient_btn"
+                data-toggle="modal" data-target="#order_term_modal">
+            Add Order Term</button>
+    </div>
+    <br />
+    <table id="order__term_result" border="0" class="table table-hover" style="width: 90%;">
+        <thead class="table-header ">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each order_term_data}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{description}}</td>
+                <td>{{price}}</td>
+                <td>
+                    <button class="btn btn-primary btn-xs">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div>
+        <a href="#" class="paginate" id="previous">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a href="#" class="paginate" id="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+
+
+<!-- New Order Term -->
+<div class="modal fade" id="order_term_modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Order Term</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="name">Order Name:</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Description:</label>
+                        <input type="text" class="form-control" name="desc">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" class="form-control" name="price">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

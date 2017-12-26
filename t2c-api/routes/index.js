@@ -4,6 +4,8 @@ var Handlebars = require('handlebars');
 var router = express.Router();
 module.exports = router;
 var patient_api = require('../controllers/patient_management');
+var order_api = require('../controllers/order_management');
+
 
 router.get('/', function(req, res) {
     if(req.session.user){
@@ -50,4 +52,12 @@ router.post('/login', function(req, res) {
     else{
         res.render('login',{err_msg : 'Please Enter Correct Username and Password'});
     }
+});
+
+router.get('/order_management',function(req,res){
+    order_api.get_order_term_info(req,res);
+});
+
+router.post('/order_management',function(req,res){
+    order_api.create_new_order_term(req,res);
 });
