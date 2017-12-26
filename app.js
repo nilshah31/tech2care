@@ -44,7 +44,7 @@ app.use(session({
 // Connect Flash
 app.use(flash());
 app.use('/', index_route);
-app.use('/', login_route);
+app.use('/login', login_route);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
