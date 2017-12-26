@@ -16,8 +16,8 @@ global.include = function(file) {
     return require(abs_path('/' + file));
 };
 
-var index_controller = include('t2c-api/routes/index');
-
+var index_route = include('t2c-api/routes/index');
+var login_route = include('t2c-api/routes/login');
 // Init App (with nodejs+express+handlebars)
 var app = express();
 
@@ -43,7 +43,8 @@ app.use(session({
 
 // Connect Flash
 app.use(flash());
-app.use('/', index_controller);
+app.use('/', index_route);
+app.use('/', login_route);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

@@ -11,7 +11,7 @@
         </a>
     </div>
     <br />
-    <table id="patient_search_result" class="table table-striped" style="width: 90%;">
+    <table id="patient_search_result" border="0" class="table table-hover" style="width: 90%;">
         <thead class="table-header ">
         <tr>
             <th>MRN</th>
@@ -26,7 +26,7 @@
         </thead>
         <tbody>
         {{#each patient_data}}
-            <tr>
+            <tr onclick="openPatinetDashboard(this);">
                 <td>{{MRN}}</td>
                 <td>{{fname}}</td>
                 <td>{{lname}}</td>
@@ -52,3 +52,9 @@
         </a>
     </div>
 </div>
+
+<script>
+    function openPatinetDashboard(object) {
+        window.location = "/patient_dashboard?mrn="+object.getElementsByTagName('td')[0].innerHTML;
+    }
+</script>

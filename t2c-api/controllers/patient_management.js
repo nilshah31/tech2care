@@ -34,6 +34,11 @@ exports.get_patient_info = function(req, res) {
     patient_modal.get_patient_info(req,res,fname,lname,phone);
 };
 
+exports.get_patient_info_by_mrn = function(req, res) {
+    var mrn = ((req.query.mrn) ? req.query.mrn : '');
+    patient_modal.get_patient_info_by_mrn(req,res,mrn);
+};
+
 exports.delete_patient_info = function(req, res) {
     res.sendStatus(201);
 };
