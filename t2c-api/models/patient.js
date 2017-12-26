@@ -22,7 +22,7 @@ exports.get_all_patient_info = function (req,res) {
     sql = "select * from Patient ORDER BY reg_dt_time DESC";
     con.query(sql, function (err, result) {
         if (err) console.log(err);
-        res.render('/',{patient_data:result,user:req.session.user});
+        res.render('index',{patient_data:result,user:req.session.user});
     });
 };
 
