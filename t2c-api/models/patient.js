@@ -22,7 +22,7 @@ exports.get_all_patient_info = function (req,res) {
     sql = "select * from Patient ORDER BY reg_dt_time DESC";
     con.query(sql, function (err, result) {
         if (err) console.log(err);
-        res.render('index',{patient_data:result,user:req.session.user});
+        res.render('/',{patient_data:result,user:req.session.user});
     });
 };
 
@@ -51,6 +51,7 @@ exports.insert_new_patient = function(req,res,mrn,fname,lname,gender,dob,age,add
         if (err) console.log(err);
         console.log("Patient Created");
     });
+    res.redirect('/');
 };
 
 //create Patient table
@@ -78,5 +79,4 @@ exports.create_patient_table = function(req,res){
         if (err) console.log("Error");
         console.log("Patient Table Created");
     });
-    res.redirect('index');
 };
