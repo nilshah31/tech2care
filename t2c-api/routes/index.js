@@ -5,6 +5,8 @@ var router = express.Router();
 module.exports = router;
 var patient_api = require('../controllers/patient_management');
 var order_api = require('../controllers/order_management');
+var patient_modal = require('../models/patient');
+var order_modal = require('../models/order');
 
 
 router.get('/', function(req, res) {
@@ -22,7 +24,22 @@ router.get('/new_patient', function(req, res) {
 
 
 router.get('/patient_dashboard', function(req, res) {
-    patient_api.get_patient_info_by_mrn(req,res);
+    var mrn = ((req.query.mrn) ? req.query.mrn : '');
+    req.session.mrn = mrn;
+    order_api.create_orders_table(req,res);
+    patient_modal.get_patient_info_by_mrn(req,mrn,function(err,result){
+        if(err) console.log(err);
+        order_modal.get_all_order_term_info(req,function(err,order_term_result){
+            order_api.get_all_orders_by_mrn(req,res,function (err,all_order_result) {
+                res.render('patient_dashboard',{
+                    patient_data:result,
+                    user:req.session.user,
+                    order_term_data:order_term_result,
+                    orders_data:all_order_result
+                });
+            });
+        });
+    });
 });
 
 router.get('/patient_search', function(req, res) {
@@ -55,9 +72,17 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/order_management',function(req,res){
-    order_api.get_order_term_info(req,res);
+    order_modal.get_all_order_term_info(req,function (err,result) {
+        res.render('order_management',{order_term_data:result,user:req.session.user});
+    });
 });
 
 router.post('/order_management',function(req,res){
     order_api.create_new_order_term(req,res);
+});
+
+router.post('/patient_dashboard', function(req, res) {
+    order_api.place_new_order(req,res,function(err,result){
+        res.redirect('/');
+    });
 });

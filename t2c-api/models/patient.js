@@ -1,12 +1,3 @@
-exports.get_patient_info_by_mrn = function (req,res,mrn) {
-    var con = req.app.get('con');
-    sql = "select * from Patient where MRN="+mrn+"";
-    con.query(sql, function (err, result) {
-        if (err) console.log(err);
-        res.render('patient_dashboard',{patient_data:result,user:req.session.user});
-    });
-};
-
 exports.get_patient_info = function (req,res,fname,lname,phone) {
     var con = req.app.get('con');
     sql = "select * from Patient where mob_num="+phone+" or fname='"+fname+"'" +
@@ -23,6 +14,15 @@ exports.get_all_patient_info = function (req,res) {
     con.query(sql, function (err, result) {
         if (err) console.log(err);
         res.render('index',{patient_data:result,user:req.session.user});
+    });
+};
+
+exports.get_patient_info_by_mrn = function (req,mrn,callback) {
+    var con = req.app.get('con');
+    sql = "select * from Patient where MRN="+mrn+"";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(null,result);
     });
 };
 
@@ -48,7 +48,6 @@ exports.insert_new_patient = function(req,res,mrn,fname,lname,gender,dob,age,add
         "'"+status+"'"+
         ")";
     con.query(sql, function (err, result) {
-        if (err) console.log(err);
         console.log("Patient Created");
     });
     res.redirect('/');
@@ -76,7 +75,6 @@ exports.create_patient_table = function(req,res){
         "status BOOLEAN"+
         ")";
     con.query(sql, function (err, result) {
-        if (err) console.log("Error");
         console.log("Patient Table Created");
     });
 };
