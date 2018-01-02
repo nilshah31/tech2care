@@ -9,6 +9,7 @@
   "author": "Nil Shah",
   "license": "ISC",
   "dependencies": {
+    "barcode": "*",
     "body-parser": "*",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
@@ -18,9 +19,11 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "ipp-printer": "^1.0.0",
     "moment": "^2.19.3",
     "mysql": "*",
     "mysql-model": "0.0.2",
+    "node-printer": "*",
     "nodemailer": "*",
     "random-number": "*"
   },

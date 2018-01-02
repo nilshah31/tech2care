@@ -88,13 +88,56 @@ exports.insert_new_order = function(req,mrn,order_term_id,status,order_by,
     });
 };
 
-exports.get_order_by_mrn = function(req,mrn,callback){
+exports.get_orders_by_mrn = function(req,mrn,callback){
     var con = req.app.get('con');
-    console.log(mrn);
     sql = "select * from Orders where mrn="+mrn+"";
+    var sql_ordered_status = "select * from Orders where mrn="+mrn+" ORDER BY dt_time ASC";
+    var sql_term_names = "select * from Order_Term " +
+        "INNER JOIN Orders ON Orders.order_term_id=Order_Term.ID where Orders.mrn="+mrn;
+    var sql_patient_data = "select * from Patient " +
+        "INNER JOIN Orders ON Orders.mrn=Patient.mrn where Orders.mrn="+mrn;
+    con.query(sql_ordered_status, function (err, ordered_data) {
+        if (err) console.log(err);
+        con.query(sql_term_names, function (err, term_names_result) {
+            con.query(sql_patient_data, function (err, patient_data) {
+                callback(err,ordered_data,term_names_result,patient_data);
+            });
+        });
+    });
+};
+
+exports.get_all_orders = function(req,callback){
+    var con = req.app.get('con');
+    sql = "select * from Orders ORDER BY dt_time ASC";
     con.query(sql, function (err, result) {
         if (err) console.log(err);
         callback(err,result);
     });
 };
 
+exports.get_all_uncompleted_orders = function(req,callback){
+    var con = req.app.get('con');
+    var sql_ordered_status = "select * from Orders where status=0 ORDER BY dt_time ASC";
+    var sql_term_names = "select * from Order_Term " +
+        "INNER JOIN Orders ON Orders.order_term_id=Order_Term.ID where Orders.status=0";
+    var sql_patient_data = "select * from Patient " +
+        "INNER JOIN Orders ON Orders.mrn=Patient.mrn where Orders.status=0";
+    con.query(sql_ordered_status, function (err, ordered_data) {
+        if (err) console.log(err);
+        con.query(sql_term_names, function (err, term_names_result) {
+            con.query(sql_patient_data, function (err, patient_data) {
+                callback(err,ordered_data,term_names_result,patient_data);
+            });
+        });
+    });
+};
+
+exports.update_order_status = function(req,oid,new_status,specimen_collected_dt,callback){
+    var con = req.app.get('con');
+    sql = "Update Orders set status="+new_status+",sample_collected_timestamp='"+specimen_collected_dt+
+          "' where ID="+oid+"";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+};
