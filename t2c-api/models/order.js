@@ -94,8 +94,8 @@ exports.get_orders_by_mrn = function(req,mrn,callback){
     var sql_ordered_status = "select * from Orders where mrn="+mrn+" ORDER BY dt_time ASC";
     var sql_term_names = "select * from Order_Term " +
         "INNER JOIN Orders ON Orders.order_term_id=Order_Term.ID where Orders.mrn="+mrn;
-    var sql_patient_data = "select * from Patient " +
-        "INNER JOIN Orders ON Orders.mrn=Patient.mrn where Orders.mrn="+mrn;
+    var sql_patient_data = "select * from Patient where " +
+        "MRN="+mrn;
     con.query(sql_ordered_status, function (err, ordered_data) {
         if (err) console.log(err);
         con.query(sql_term_names, function (err, term_names_result) {

@@ -7,7 +7,7 @@ var patient_api = require('../controllers/patient_management');
 var order_api = require('../controllers/order_management');
 var patient_modal = require('../models/patient');
 var order_modal = require('../models/order');
-
+var result_componut_api = require('../controllers/result_componut');
 
 router.get('/', function (req, res) {
     if (req.session.user) {
@@ -33,6 +33,72 @@ router.get('/patient_dashboard', function (req, res) {
             orders_data: all_order_result
         });
       });
+});
+
+router.post('/resultentrybuilder/:id', function (req, res) {
+  result_componut_api.insert_ResultOrderTermRef(req,res,function(err,result){
+    order_modal.get_all_order_term_info(req, function (err, result) {
+      result_componut_api.get_all_result_componuts_info(req, res, function (err, result_componuts_data) {
+        order_modal.get_order_term_info_by_id(req,req.params.id,function (err, orderDetails) {
+          result_componut_api.get_all_resultordertermref_by_orderterm_id(req,res,function(err,allComponutRefData){
+            res.render('resultentrybuilder',
+                      {
+                        order_term_data: result,
+                        result_componuts_data:result_componuts_data,
+                        user: req.session.user,
+                        orderDetails_data:orderDetails,
+                        allComponutRefData:allComponutRefData
+                      }
+                  );
+            });
+          });
+        });
+      });
+  });
+});
+
+router.get('/resultentrybuilder/:id', function (req, res) {
+  order_modal.get_all_order_term_info(req, function (err, result) {
+    result_componut_api.get_all_result_componuts_info(req, res, function (err, result_componuts_data) {
+      order_modal.get_order_term_info_by_id(req,req.params.id,function (err, orderDetails) {
+        result_componut_api.get_all_resultordertermref_by_orderterm_id(req,res,function(err,allComponutRefData){
+          var allcomprefIds = [];
+          for(var i=0;i<allComponutRefData.length;i++){
+            allcomprefIds.push(allComponutRefData[i].resultcomponut_id);
+          }
+          result_componut_api.get_all_result_componuts_info_by_multiple_id(req,allcomprefIds,function(err,allComponutRefResult){
+            res.render('resultentrybuilder',
+                      {
+                        order_term_data: result,
+                        result_componuts_data:result_componuts_data,
+                        user: req.session.user,
+                        orderDetails_data:orderDetails,
+                        allComponutRefResult:allComponutRefResult
+                      }
+                  );
+            });
+        });
+      });
+    });
+  });
+});
+
+router.get('/resultentrybuilder', function (req, res) {
+  order_modal.get_all_order_term_info(req, function (err, result) {
+      res.render('resultentrybuilder',
+                {order_term_data: result,
+                user: req.session.user}
+              );
+  });
+});
+
+router.get('/result_componuts_management', function (req, res) {
+  result_componut_api.get_all_result_componuts_info(req, res, function (err, result_componuts_data) {
+      res.render('result_componuts_management', {
+          user: req.session.user,
+          result_componuts_data: result_componuts_data
+      });
+  });
 });
 
 router.get('/patient_search', function (req, res) {
@@ -63,6 +129,30 @@ router.get('/sample_collection', function (req, res) {
     });
 });
 
+router.get('/resultentry', function (req, res) {
+    res.render('resultentry',{  user: req.session.user});
+});
+
+router.get('/resultentry/:id', function (req, res) {
+  var order_id = req.params.id;
+  result_componut_api.get_all_resultordertermref_by_orderterm_id(req,res,function(err,allComponutRefData){
+    var allcomprefIds = [];
+    for(var i=0;i<allComponutRefData.length;i++){
+      allcomprefIds.push(allComponutRefData[i].resultcomponut_id);
+    }
+    result_componut_api.get_all_result_componuts_info_by_multiple_id(req,allcomprefIds,function(err,allComponutRefResult){
+      order_api.get_all_orders_by_mrn(req, res, function (err, all_order_result,patient_data) {
+          res.render('resultentry', {
+              patient_data: patient_data,
+              user: req.session.user,
+              orders_data: all_order_result,
+              allComponutRefResult:allComponutRefResult
+          });
+      });
+    });
+  });
+});
+
 router.post('/login', function (req, res) {
     if (req.body.uname == 'Admin' && req.body.password == 'Admin') {
         req.session.user = 'Admin';
@@ -79,6 +169,10 @@ router.get('/order_management', function (req, res) {
     });
 });
 
+router.post('/result_componuts_management', function (req, res) {
+    result_componut_api.create_new_result_componut(req,res);
+});
+
 router.post('/order_management', function (req, res) {
     order_api.create_new_order_term(req, res);
 });
@@ -92,5 +186,18 @@ router.post('/patient_dashboard', function (req, res) {
 router.post('/sample_collection',function(req,res){
   order_api.update_order_status(req,res,function(err,result){
     res.redirect('/sample_collection');
+  });
+});
+
+router.post('/search_patient',function(req,res){
+  req.session.mrn = req.body.mrn;
+  order_api.get_all_orders_by_mrn(req, res, function (err, all_order_result,patient_data) {
+    var pData = [];
+    pData.push(patient_data[0]);
+      res.render('resultentry', {
+          patient_data: pData,
+          user: req.session.user,
+          orders_data: all_order_result
+      });
   });
 });

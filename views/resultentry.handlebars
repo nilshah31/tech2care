@@ -1,0 +1,118 @@
+<div class="col-md-12" style="">
+  <br/>
+  <form id='patient_search' method="post" action='/search_patient' return>
+    <div class="form-group">
+            <input type="text" placeholder="MRN" name="mrn" style="width:30%;height:35px;" id="mrn">
+            <button type="submit" class="btn btn-info">
+              <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+    </div>
+  </form>
+  {{#if patient_data}}
+  <div class="well" style="padding-top:5px;padding-bottom:5px;">
+      <div class="row">
+          {{#each patient_data}}
+              <div class="col-sm-4">
+                  <table>
+                      <tr>
+                          <td><h4>MRN : <b>{{MRN}}</b></h4></td>
+                      </tr>
+                      <tr>
+                          <td><h4>Name : <b>{{lname}},{{fname}}</b></h4></td>
+                      </tr>
+                  </table>
+              </div>
+              <div class="col-sm-4">
+                  <table>
+                      <tr>
+                          <td><h4>Phone : <b>{{mob_num}}</b></h4></td>
+                      </tr>
+                      <tr>
+                          <td><h4>Age : <b>{{age}}</b></h4></td>
+                      </tr>
+                  </table>
+              </div>
+              <div class="col-sm-4">
+                  <table>
+                      <tr>
+                          <td><h4>City : <b>{{city}}</b></h4></td>
+                      </tr>
+                      <tr>
+                          <td><h4>Gender : <b>{{gender}}</b></h4></td>
+                      </tr>
+                  </table>
+              </div>
+          {{/each}}
+      </div>
+  </div>
+  {{/if}}
+  {{#if orders_data}}
+  <div class="well" style="max-height:220px;overflow-y: scroll;overflow-x: hidden;padding-top:5px;padding-bottom:5px;">
+      <div class="row">
+        <table id="patient_orders_result" border="0" class="table table-hover" style="width: 90%;">
+            <thead class="table-header ">
+            <tr>
+                <th>Order Name</th>
+                <th>Placed By</th>
+                <th>Ordered Date</th>
+                <th>Sample Collected Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each orders_data}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{ordered_by}}</td>
+                    <td>{{order_date}}</td>
+                    <td>{{speciment_collected_dt_time}}</td>
+                    <td>{{status}}</td>
+                    <td>
+                        <button value='{{order_id}}' onclick="showResultEntry(this)" class="btn btn-primary btn-xs">
+                            Enter Result
+                        </button>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+      </div>
+  </div>
+  {{/if}}
+  {{#if allComponutRefResult}}
+  <h5>Enter Test Results : </h5>
+  <div class="well" style="min-height:290px;max-height:290px;overflow-y: scroll;overflow-x: hidden;padding-top:5px;padding-bottom:5px;">
+      <div class="row">
+        <table id="patient_orders_result" border="0" class="table table-hover" style="width: 70%;">
+            <thead class="table-header ">
+            <tr>
+                <th>Componut</th>
+                <th>Value</th>
+                <th>Unit</th>
+                <th>Reference Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each allComponutRefResult}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td><input type="text" /></td>
+                    <td>{{unit}}</td>
+                    <td>{{reference_value}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        <input type="submit" value='Submit Result' class="btn btn-primary" />
+      </div>
+  </div>
+  {{/if}}
+</div>
+
+<script>
+  function showResultEntry(obj){
+    document.getElementById('mrn').value = '75109878102';
+    window.location = "/resultentry/"+obj.value;
+  }
+</script>

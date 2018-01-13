@@ -27,19 +27,20 @@
                 <td>{{speciment_collected_dt_time}}</td>
                 <td>{{status}}</td>
                 <td><a href="#" id="printBarCode"
-                       class="openDialogBox" onclick="printBarCode(
-                                                     '{{patient_name}}',
-                                                     '{{name}}',
-                                                     '{{order_date}}',
-                                                     '{{ID}}',
-                                                     '{{patient_mrn}}')">Update
+                       class="openDialogBox btn btn-info btn-lg"
+                       onclick="printBarCode(
+                               '{{patient_name}}',
+                               '{{name}}',
+                               '{{order_date}}',
+                               '{{ID}}',
+                               '{{patient_mrn}}')">
+                               <span class="glyphicon glyphicon-ok"></span>
                      </a></td>
             </tr>
         {{/each}}
         </tbody>
     </table></form>
 </div>
-
 <div id="dialog-confirm" title="Do you want to print label?" style="display: none;">
   <div class="row" style="margin-left:2%;">
     <div class="col-md-6"><span id='patient_name'></span></div>
@@ -57,39 +58,4 @@
   </div>
 </div>
 
-<script>
-function printBarCode(pName,oName,oDate,order_id,mrn){
-  $("#patient_name").text(pName);
-  $("#order_name").text(oName);
-  $("#order_date").text(oDate);
-  $("#patient_mrn").text(mrn);
-  $("#order_id").val(order_id);
-  $("#barcode").barcode(
-    mrn,
-    "std25",
-    { showHRI: true, barWidth: 2, barHeight: 100   }
-  );
-  //printDiv('barcode');
-  $( "#dialog-confirm" ).dialog({
-    resizable: false,
-    height: "auto",
-    width: 450,
-    modal: true,
-    buttons: {
-      "Yes": function() {
-        $('#sample_collection_form').submit();
-      },
-      "No": function() {
-        $( this ).dialog( "close" );
-      }
-    }
-  });
-}
-function printDiv(divName) {
-  var printContents = document.getElementById(divName).innerHTML;
-  var originalContents = document.body.innerHTML;
-  document.body.innerHTML = printContents;
-  window.print();
-  document.body.innerHTML = originalContents;
-}
-</script>
+<script type="text/javascript" src="js/sample_collection.js"></script>
