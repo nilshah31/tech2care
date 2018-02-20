@@ -45,7 +45,7 @@
           {{/each}}
       </div>
   </div>
-  {{/if}}
+  {{/if }}
   {{#if orders_data}}
   <div class="well" style="max-height:220px;overflow-y: scroll;overflow-x: hidden;padding-top:5px;padding-bottom:5px;">
       <div class="row">
@@ -84,35 +84,50 @@
   <h5>Enter Test Results : </h5>
   <div class="well" style="min-height:290px;max-height:290px;overflow-y: scroll;overflow-x: hidden;padding-top:5px;padding-bottom:5px;">
       <div class="row">
-        <table id="patient_orders_result" border="0" class="table table-hover" style="width: 70%;">
-            <thead class="table-header ">
-            <tr>
-                <th>Componut</th>
-                <th>Value</th>
-                <th>Unit</th>
-                <th>Reference Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each allComponutRefResult}}
-                <tr>
-                    <td>{{name}}</td>
-                    <td><input type="text" /></td>
-                    <td>{{unit}}</td>
-                    <td>{{reference_value}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-        <input type="submit" value='Submit Result' class="btn btn-primary" />
+        <form method="post">
+            <table id="patient_orders_result" border="0" class="table table-hover" style="width: 70%;">
+              <thead class="table-header ">
+              <tr>
+                  <th>Componut</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                  <th>Reference Value</th>
+              </tr>
+              </thead>
+              <tbody>
+              <input type="hidden" value="" id="orderID" name="orderID" />
+              {{#each allComponutRefResult}}
+                  <tr>
+                      <input type="hidden" value="{{ID}}" id="resultCompunutsIDs" name="resultCompunutsIDs">
+                      <td>{{name}}</td>
+                      <td><input type="text" name="resultCompunutsValue"/></td>
+                      <td>{{unit}}</td>
+                      <td>{{reference_value}}</td>
+                  </tr>
+              {{/each}}
+              </tbody>
+          </table>
+          <input type="submit" value='Submit Result' class="btn btn-primary" />
+        </form>
       </div>
   </div>
   {{/if}}
 </div>
 
 <script>
+  {{#if result_entry_res}}
+    var result_data = [];
+    {{#each result_entry_res}}
+      result_data.push({value:'{{value}}'});
+    {{/each}}
+    $('input[name="resultCompunutsValue"]').each(function(index, el){
+      $(this).val(result_data[index].value);
+    });
+  {{/if}}
   function showResultEntry(obj){
-    document.getElementById('mrn').value = '75109878102';
     window.location = "/resultentry/"+obj.value;
   }
+  {{#if order_id}}
+    document.getElementById('orderID').value={{order_id}};
+  {{/if}}
 </script>

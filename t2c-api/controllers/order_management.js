@@ -42,6 +42,7 @@ exports.get_all_orders_by_mrn = function(req, res,callback) {
           status = ordered_data[i].status==0? status = 'Ordered' : ordered_data[i].status==1? status = 'Collected' : status = 'Completed';
           order_row = {
               order_id: ordered_data[i].ID,
+              term_id: term_names_result[i].ID,
               name: term_names_result[i].name,
               price: term_names_result[i].price,
               status: status,

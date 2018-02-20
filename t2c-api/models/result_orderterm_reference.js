@@ -1,6 +1,6 @@
-exports.create_result_orderTerm_reference_table = function(req,res){
+exports.create_result_orderTerm_reference_table = function(req){
     var con = req.app.get('con');
-    sql = "CREATE TABLE ResultOrderTermRef (" +
+    sql = "CREATE TABLE IF NOT EXISTS ResultOrderTermRef (" +
         "ID int primary key auto_increment," +
         "orderterm_id int NOT NULL,"+
         "resultcomponut_id int" +

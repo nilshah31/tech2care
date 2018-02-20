@@ -1,4 +1,5 @@
 'use strict';
+var order_modal = require('../models/order');
 var patient_modal = require('../models/patient');
 var rn = require('random-number');
 var moment = require('moment');

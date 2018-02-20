@@ -30,7 +30,7 @@ exports.insert_order_term = function(req,res,name,desc,price) {
 
 exports.get_all_order_term_info = function (req,callback) {
     var con = req.app.get('con');
-    sql = "select * from Order_Term ORDER BY name ASC";
+    sql = "select * from Order_Term";
     con.query(sql, function (err, result) {
         if (err) console.log(err);
         callback(err,result);
@@ -40,6 +40,15 @@ exports.get_all_order_term_info = function (req,callback) {
 exports.get_order_term_info_by_name = function (req,name,callback) {
     var con = req.app.get('con');
     sql = "select * from Order_Term where name='"+name+"'";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+}
+
+exports.get_orders_info_by_id = function (req,id,callback) {
+    var con = req.app.get('con');
+    sql = "select * from Orders where ID="+id+"";
     con.query(sql, function (err, result) {
         if (err) console.log(err);
         callback(err,result);
@@ -92,7 +101,7 @@ exports.get_orders_by_mrn = function(req,mrn,callback){
     var con = req.app.get('con');
     sql = "select * from Orders where mrn="+mrn+"";
     var sql_ordered_status = "select * from Orders where mrn="+mrn+" ORDER BY dt_time ASC";
-    var sql_term_names = "select * from Order_Term " +
+    var sql_term_names = "select Order_Term.ID,Order_Term.name,Order_Term.price from Order_Term " +
         "INNER JOIN Orders ON Orders.order_term_id=Order_Term.ID where Orders.mrn="+mrn;
     var sql_patient_data = "select * from Patient where " +
         "MRN="+mrn;
@@ -136,6 +145,15 @@ exports.update_order_status = function(req,oid,new_status,specimen_collected_dt,
     var con = req.app.get('con');
     sql = "Update Orders set status="+new_status+",sample_collected_timestamp='"+specimen_collected_dt+
           "' where ID="+oid+"";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+};
+
+exports.update_order_status_completed = function(req,oid,new_status,callback){
+    var con = req.app.get('con');
+    sql = "Update Orders set status="+new_status+" where ID="+oid;
     con.query(sql, function (err, result) {
         if (err) console.log(err);
         callback(err,result);

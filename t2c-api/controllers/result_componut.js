@@ -35,17 +35,17 @@ exports.get_all_resultordertermref = function(req,res,callback){
     });
 };
 
-exports.get_all_resultordertermref_by_orderterm_id = function(req,res,callback){
-    ResultOrderTermRef_model.create_result_orderTerm_reference_table(req,res);
-    ResultOrderTermRef_model.get_all_resultordertermref_by_orderterm_id(req,req.params.id,function(err,result){
+exports.get_all_resultordertermref_by_orderterm_id = function(req,order_term_id,callback){
+    ResultOrderTermRef_model.create_result_orderTerm_reference_table(req);
+    ResultOrderTermRef_model.get_all_resultordertermref_by_orderterm_id(req,order_term_id,function(err,result){
       if(err) console.log(err);
+      console.log(result);
       callback(err,result);
     });
 }
 
 exports.insert_ResultOrderTermRef = function(req,res,callback){
     ResultOrderTermRef_model.create_result_orderTerm_reference_table(req,res);
-    console.log(req.body.compNameTxtBox);
     result_componut_model.get_result_comp_info_by_name(req,req.body.compNameTxtBox,function(err,result_comp_data){
       ResultOrderTermRef_model.insert_ResultOrderTermRef(
                                req,req.body.ordertermID,
