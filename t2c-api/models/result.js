@@ -42,3 +42,12 @@ exports.get_result_information = function(req,oid,callback) {
         callback(err,result);
     });
 };
+
+exports.get_result_information_by_oid = function(req,oid,callback) {
+    var con = req.app.get('con');
+    sql = "select * from Results where oid in(oid)";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+};

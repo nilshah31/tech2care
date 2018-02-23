@@ -24,8 +24,10 @@ exports.register_patient = function(req, res) {
         add2,city,state,country,mob_num,reg_dt_time,status);
 };
 
-exports.get_all_patient_info = function(req, res) {
-    patient_modal.get_all_patient_info(req,res);
+exports.get_all_patient_info = function(req, callback) {
+    patient_modal.get_all_patient_info(req,function(err,result){
+      callback(err,result);
+    });
 }
 
 exports.get_patient_info = function(req, res) {

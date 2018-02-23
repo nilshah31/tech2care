@@ -1,0 +1,66 @@
+
+<div class="col-md-12" style="margin : 1% 76%;padding-left:10%;">
+  <button type="button" class="button btn-primary btn-sm" onclick="printJS('report', 'html')">
+    <span class="glyphicon glyphicon-print"></span>
+  </button>
+</div>
+
+<div class="col-md-12" id="report" style="margin : 1% 0%;padding:0% 10% 0% 10%">
+  <div class="row">
+    <div class="col-md-12">
+      {{#each patient_data}}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Patient Demographics</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <tbody>
+                <tr>
+                  <td>MRN : {{MRN}}</td>
+                  <td>First Name : {{fname}}</td>
+                  <td>Last Name : {{lname}}</td>
+                </tr>
+                <tr>
+                  <td>Gender : {{gender}}</td>
+                  <td>City : {{city}}</td>
+                  <td>Mobile Number : {{mob_num}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{#each orders_data}}
+      <div class="panel panel-default" style="border:0">
+        <div class="panel-heading">
+          <h4 class="panel-title">{{name}}</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <tbody>
+                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                {{#getOrderTermData ../result_componut_data ../result_entry_data order_id}}
+                {{/getOrderTermData}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+
+
+
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">

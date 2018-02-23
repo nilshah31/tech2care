@@ -34,12 +34,34 @@ exports.place_new_order = function(req, res,callback) {
     });
 };
 
+exports.get_all_orders_by_mrn_status_resulted = function(req, res,callback) {
+    var all_orders = [];
+    var mrn = req.session.mrn;
+    order_modal.get_all_orders_by_mrn_status_resulted(req,mrn,function (err,ordered_data,term_names_result,patient_data) {
+        for(var i=0;i<ordered_data.length;i++){
+          status = ordered_data[i].status==0? status = 'Ordered' : ordered_data[i].status==1? status = 'Collected' : status = 'Resulted';
+          order_row = {
+              order_id: ordered_data[i].ID,
+              term_id: term_names_result[i].ID,
+              name: term_names_result[i].name,
+              price: term_names_result[i].price,
+              status: status,
+              ordered_by:ordered_data[i].ordered_by,
+              speciment_collected_dt_time:ordered_data[i].sample_collected_timestamp.toLocaleDateString(),
+              order_date:ordered_data[i].dt_time.toLocaleDateString()
+          };
+          all_orders.push(order_row);
+        }
+        callback(err,all_orders,patient_data);
+    });
+};
+
 exports.get_all_orders_by_mrn = function(req, res,callback) {
     var all_orders = [];
     var mrn = req.session.mrn;
     order_modal.get_orders_by_mrn(req,mrn,function (err,ordered_data,term_names_result,patient_data) {
         for(var i=0;i<ordered_data.length;i++){
-          status = ordered_data[i].status==0? status = 'Ordered' : ordered_data[i].status==1? status = 'Collected' : status = 'Completed';
+          status = ordered_data[i].status==0? status = 'Ordered' : ordered_data[i].status==1? status = 'Collected' : status = 'Resulted';
           order_row = {
               order_id: ordered_data[i].ID,
               term_id: term_names_result[i].ID,

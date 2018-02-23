@@ -1,0 +1,49 @@
+<div class="row" style="margin-left: 2%;width: 90%">
+ 	<br />
+  <h2>Report Builder - Sections Order</h2>
+  <br />
+		 <form class="form-inline" method="post">
+		 <div class="form-group">
+    	 <input type="text"
+							class="form-control lg"
+							id="orderNametxtBox"
+							name="orderNametxtBox"
+							list="orderList"
+							placeholder="Add Order Term"
+							width="10"
+              autocomplete="off" />
+	   <button type="submit" class="btn btn-primary">Add</button>
+     <button type="button" class="btn btn-primary">Update Order</button>
+	 	</div>
+    </form>
+    <br />
+		 <table class="table pagin-table" style="width:60%;">
+        <thead>
+            <tr>
+                <th width="50px">No</th>
+                <th>Name</th>
+                <th width="50px">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+          {{#each report_order_result}}
+            <tr>
+              <td>1</td>
+              <td>{{name}}</td>
+              <td><a href="#" class="btn btn-info btn-sm">
+                  <span class="glyphicon glyphicon-trash"></span>
+                  </a>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+    </table>
+</div>
+<datalist id="orderList">
+    {{#each all_order_terms}}
+        <option value='{{name}}'/>
+    {{/each}}
+</datalist>
+<script type="text/javascript">
+  $('tbody').sortable();
+</script>

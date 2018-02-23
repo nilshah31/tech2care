@@ -10,6 +10,13 @@ exports.get_existing_result = function(req,res,order_id,callback){
     });
 }
 
+exports.get_result_information_by_oid = function(req,order_id,callback){
+    //result_modal.create_result_table(req,res);
+    result_modal.get_result_information_by_oid(req,order_id,function(err,result_entry_result){
+        callback(err,result_entry_result);
+    });
+}
+
 exports.insert_or_update_resultValue = function(req,res,callback){
   resultCompunutsIDs = [];
   resultCompunutsValues = [];

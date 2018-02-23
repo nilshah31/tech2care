@@ -57,3 +57,12 @@ exports.get_all_result_componuts_info_by_multiple_id = function (req,ids,callbac
         callback(err,result);
     });
 }
+
+exports.get_all_result_componuts_info_id = function (req,id,callback) {
+    var con = req.app.get('con');
+    sql = "select * from ResultComponut where ID ="+id;
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+}

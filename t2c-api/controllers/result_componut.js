@@ -63,3 +63,10 @@ exports.get_all_result_componuts_info_by_multiple_id = function(req,ids,callback
       callback(err,result);
     });
 }
+
+exports.get_all_result_componuts_info_id = function(req,id,callback){
+    result_componut_model.get_all_result_componuts_info_id(req,id,function(err,result){
+      if(err) console.log(err);
+      callback(err,result);
+    });
+}

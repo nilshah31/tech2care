@@ -37,6 +37,16 @@ exports.get_all_order_term_info = function (req,callback) {
     });
 }
 
+exports.get_all_order_term_info_not_in_id = function (req,id,callback) {
+  console.log(id)
+    var con = req.app.get('con');
+    sql = "select * from Order_Term where ID NOT IN ("+id+")";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+}
+
 exports.get_order_term_info_by_name = function (req,name,callback) {
     var con = req.app.get('con');
     sql = "select * from Order_Term where name='"+name+"'";
@@ -49,6 +59,15 @@ exports.get_order_term_info_by_name = function (req,name,callback) {
 exports.get_orders_info_by_id = function (req,id,callback) {
     var con = req.app.get('con');
     sql = "select * from Orders where ID="+id+"";
+    con.query(sql, function (err, result) {
+        if (err) console.log(err);
+        callback(err,result);
+    });
+}
+
+exports.get_order_term_info_by_multiple_id = function (req,id,callback) {
+    var con = req.app.get('con');
+    sql = "select * from Order_Term where ID in("+id+")";
     con.query(sql, function (err, result) {
         if (err) console.log(err);
         callback(err,result);
@@ -94,6 +113,24 @@ exports.insert_new_order = function(req,mrn,order_term_id,status,order_by,
         if (err) console.log(err);
         console.log("Row Created - Orders");
         callback(null,result);
+    });
+};
+
+exports.get_all_orders_by_mrn_status_resulted = function(req,mrn,callback){
+    var con = req.app.get('con');
+    sql = "select * from Orders where mrn="+mrn+" and status=2";
+    var sql_ordered_status = "select * from Orders where mrn="+mrn+" and status=2 ORDER BY dt_time ASC";
+    var sql_term_names = "select Order_Term.ID,Order_Term.name,Order_Term.price from Order_Term " +
+        "INNER JOIN Orders ON Orders.order_term_id=Order_Term.ID where Orders.status=2 and Orders.mrn="+mrn;
+    var sql_patient_data = "select * from Patient where " +
+        "MRN="+mrn;
+    con.query(sql_ordered_status, function (err, ordered_data) {
+        if (err) console.log(err);
+        con.query(sql_term_names, function (err, term_names_result) {
+            con.query(sql_patient_data, function (err, patient_data) {
+                callback(err,ordered_data,term_names_result,patient_data);
+            });
+        });
     });
 };
 

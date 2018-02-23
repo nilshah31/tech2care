@@ -1,0 +1,51 @@
+<div class="col-md-12" style="margin-left: 2%">
+  <br />
+  <br />
+  <table id="patient_search_result" border="0" class="table table-hover" style="width: 90%;">
+    <thead class="table-header ">
+      <tr>
+        <th>MRN</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Phone Number</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <form method="post">
+        {{#each patient_data}}
+        <tr onclick="openPatinetDashboard(this);">
+          <td>{{MRN}}</td>
+          <td>{{fname}}</td>
+          <td>{{lname}}</td>
+          <td>{{add1}},<br/>{{add2}}</td>
+          <td>{{city}}</td>
+          <td>{{mob_num}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-md">
+              <span class="glyphicon glyphicon-list-alt"></span>
+            </button>
+          </td>
+        </tr>
+        {{/each}}
+      </form>
+    </tbody>
+  </table>
+  <div>
+    <a href="#" class="paginate" id="previous">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a href="#" class="paginate" id="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+</div>
+
+<script>
+function openPatinetDashboard(object) {
+  window.location = "/reportviewer?mrn="+object.getElementsByTagName('td')[0].innerHTML;
+}
+</script>
