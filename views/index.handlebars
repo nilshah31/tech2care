@@ -1,60 +1,75 @@
 <div class="col-md-12" style="margin-left: 2%">
     <br/>
     <div class="row">
-        <a href="/new_patient" class="btn add_patient_btn">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Add Patient
-        </a>
-        <a href="/patient_search" class="btn srch_patient_btn">
-            <span class="glyphicon glyphicon-search"></span>
-            Patient Search
-        </a>
-    </div>
-    <br />
-    <table id="patient_search_result" border="0" class="table table-hover" style="width: 90%;">
-        <thead class="table-header ">
-        <tr>
-            <th>MRN</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Phone Number</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#each patient_data}}
-            <tr onclick="openPatinetDashboard(this);">
-                <td>{{MRN}}</td>
-                <td>{{fname}}</td>
-                <td>{{lname}}</td>
-                <td>{{add1}},<br/>{{add2}}</td>
-                <td>{{city}}</td>
-                <td>{{mob_num}}</td>
-                <td>
-                    <button class="btn btn-primary btn-xs">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                </td>
-                <td><a href="#">Select</a></td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
-    <div>
-        <a href="#" class="paginate" id="previous">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a href="#" class="paginate" id="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
+      <div class="col-md-3">
+          <button style="width:14em;
+          height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/patient';">
+           <img src="images/Patient_icon.png" width="150px" height= "100px">
+          Patient Dashboard</button>
+      </div>
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/order_management';" >
+            <img src="images/order_management_icon.png" width="150px" height= "100px">
+            Order Management</button>
+      </div>
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/sample_collection';">
+            <img src="images/speciment_icon.png" width="150px" height= "100px">
+            Sample Collection</button>
+      </div>
+      <div class="col-md-3">
+          <button style="width:14em;
+          height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/resultentry';"><img src="images/lab_icon.png" width="150px" height= "100px">
+            Result Entry</button>
+      </div>
+    </div><br />
+    <div class="row">
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/report_aunth';">
+            <img src="images/report_viewer_icon.png" width="150px" height= "100px">
+            Report Authontication</button>
+      </div>
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/reportpublisher';">
+            <img src="images/report_icon.png" width="150px" height= "100px">
+            Report Viewer</button>
+      </div>
+
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/result_componuts_management';">
+            <img src="images/result_comp.png" width="150px" height= "100px">
+            Result Componuts</button>
+      </div>
+
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/resultentrybuilder';">
+            <img src="images/manage_ref.png" width="150px" height= "100px">
+            Manage Reference</button>
+      </div>
+    </div><br />
+    <div class="row">
+      <div class="col-md-3">
+          <button style="width:14em;height:10em;
+          border-radius: 4px 40px;"
+          onclick="location.href='/reportbuilder';">
+            <img src="images/report_builder.png" width="150px" height= "100px">
+            Report Builder</button>
+      </div>
     </div>
 </div>
-
-<script>
-    function openPatinetDashboard(object) {
-        window.location = "/patient_dashboard?mrn="+object.getElementsByTagName('td')[0].innerHTML;
-    }
-</script>

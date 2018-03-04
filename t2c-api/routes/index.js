@@ -23,6 +23,17 @@ router.get('/', function (req, res) {
     }
 });
 
+router.get('/patient', function (req, res) {
+    if (req.session.user) {
+        patient_api.get_all_patient_info(req, function(err,result){
+          res.render('patient',{patient_data:result,user:req.session.user});
+        });
+    }
+    else {
+        res.redirect('login');
+    }
+});
+
 router.get('/reportpublisher', function (req, res) {
       patient_api.get_all_patient_info(req, function(err,result){
         res.render('reportpublisher',{patient_data:result,user:req.session.user});
@@ -98,11 +109,14 @@ router.get('/patient_dashboard', function (req, res) {
     req.session.mrn = mrn;
     order_api.create_orders_table(req, res);
     order_api.get_all_orders_by_mrn(req, res, function (err, all_order_result,patient_data) {
+      order_modal.get_all_order_term_info(req, function (err, order_term_data) {
         res.render('patient_dashboard', {
             patient_data: patient_data,
             user: req.session.user,
-            orders_data: all_order_result
+            orders_data: all_order_result,
+            order_term_data:order_term_data
         });
+      });
       });
 });
 

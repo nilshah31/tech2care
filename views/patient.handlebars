@@ -1,0 +1,60 @@
+<div class="col-md-12" style="margin-left: 2%">
+    <br/>
+    <div class="row">
+        <a href="/new_patient" class="btn add_patient_btn">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Add Patient
+        </a>
+        <a href="/patient_search" class="btn srch_patient_btn">
+            <span class="glyphicon glyphicon-search"></span>
+            Patient Search
+        </a>
+    </div>
+    <br />
+    <table id="patient_search_result" border="0" class="table table-hover" style="width: 90%;">
+        <thead class="table-header ">
+        <tr>
+            <th>MRN</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Phone Number</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each patient_data}}
+            <tr onclick="openPatinetDashboard(this);">
+                <td>{{MRN}}</td>
+                <td>{{fname}}</td>
+                <td>{{lname}}</td>
+                <td>{{add1}},<br/>{{add2}}</td>
+                <td>{{city}}</td>
+                <td>{{mob_num}}</td>
+                <td>
+                    <button class="btn btn-primary btn-xs">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+                <td><a href="#">Select</a></td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div>
+        <a href="#" class="paginate" id="previous">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a href="#" class="paginate" id="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+
+<script>
+    function openPatinetDashboard(object) {
+        window.location = "/patient_dashboard?mrn="+object.getElementsByTagName('td')[0].innerHTML;
+    }
+</script>
